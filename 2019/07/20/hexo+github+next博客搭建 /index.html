@@ -5,15 +5,19 @@
   
 
   
-  <title>Hexo</title>
+  <title>hexo+github+next博客搭建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="以前一直是使用CSDN来放置blog，但是呢？经常容易被禁，进而造成了一定的困扰，故而，现在打算将其都迁移到github上来，所以下班之后利用业余时间学习了hexo打算用其来建立一个blog来分享一些自己的学习故事，以及一些阅读和生活的感悟。搭建过程参考了许多开源兄弟的分享，现在根据自己的情况将搭建过程记录下来，以便自己后序的回顾和未来的学习朋友有所帮助。 环境1win10专业版，64位  准备工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo+github+next博客搭建">
+<meta property="og:url" content="http://yoursite.com/2019/07/20/hexo+github+next博客搭建 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="以前一直是使用CSDN来放置blog，但是呢？经常容易被禁，进而造成了一定的困扰，故而，现在打算将其都迁移到github上来，所以下班之后利用业余时间学习了hexo打算用其来建立一个blog来分享一些自己的学习故事，以及一些阅读和生活的感悟。搭建过程参考了许多开源兄弟的分享，现在根据自己的情况将搭建过程记录下来，以便自己后序的回顾和未来的学习朋友有所帮助。 环境1win10专业版，64位  准备工">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-20T01:25:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="hexo+github+next博客搭建">
+<meta name="twitter:description" content="以前一直是使用CSDN来放置blog，但是呢？经常容易被禁，进而造成了一定的困扰，故而，现在打算将其都迁移到github上来，所以下班之后利用业余时间学习了hexo打算用其来建立一个blog来分享一些自己的学习故事，以及一些阅读和生活的感悟。搭建过程参考了许多开源兄弟的分享，现在根据自己的情况将搭建过程记录下来，以便自己后序的回顾和未来的学习朋友有所帮助。 环境1win10专业版，64位  准备工">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,57 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/20/impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace/" class="article-date">
-  <time datetime="2019-07-20T01:30:08.000Z" itemprop="datePublished">2019-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace/">impact of single parameter changes on Ceph cloud storage performace</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract:"></a><strong>Abstract:</strong></h2><pre><code>在通用云系统中，在用于私有云的存储系统支持不同的应用程序及要求尚未获得理想的效率。 支持这些不同的要求对于支持各种参数的细粒度配置的存储系统提出了重大挑战。 本文使用Ceph分布式文件系统，特别是其全局参数，来说明在使用OpenStack云系统进行测试时，单个更改的参数如何影响一系列访问模式的性能。</code></pre><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a><strong>1.介绍</strong></h2><pre><code>云系统变得越来越复杂，可以被采用以适应各种类型的用例，并且用户以非常不同的方式利用云资源。 他们的要求根据工作负载而变化，其中包括Web服务器，数据库服务器，电子邮件服务器或目录服务器等服务，但它们也可用于其他目的，例如虚拟桌面，呈现或基因组排序。 这些服务的要求不仅在最常用的系统组件中有所不同，例如CPU，内存系统或网络，还有它的特性。
-在查看存储系统时，服务要求差别很大。 访问模式由顺序和/或随机方式的读和/或写的混合以及不同的块大小的组合。 根据应用程序，具有最高重要性的度量标准可能是吞吐量，平均或最大延迟或两者的混合。 此处技术解决方案的主要动机是尝试回答云运营商如何更改存储配置以更好地支持这些特定访问模式的问题。
-
-OpenStack提供了为VM的I/O系统设置配额的选项。
-可以为每秒的读/写/总字节数（B/s）或每秒操作数（IOPS）的相同类别设置限制。这允许细粒度限制，这可以有效地限制小文件（通过IOPS）和大文件（通过B/s）访问模式的吞吐量。
-使用这些配额时，无法创建适合特定工作负载的风格，因为这些限制参数无法捕获某些重要特征（如延迟）。因此，必须能够提供可以更加针对用例的存储选项。 其范围从使用不同的技术，例如传统的慢速和快速旋转硬盘驱动器到固态驱动器。 这些驱动器可以用于影响相应性能的许多不同配置中。 配置选项包括存储I/O调度程序和文件系统等。当与分布式文件系统结合使用时变得更具挑战性，分布式文件系统似乎是根据用于OpenStack的最常见的存储后端。</code></pre><h2 id="2-Ceph"><a href="#2-Ceph" class="headerlink" title="2.Ceph"></a><strong>2.Ceph</strong></h2><pre><code>Ceph的设计假设大型peta级存储系统是一个增量增长系统，其中组件的故障不是例外，而是规范，工作负载不断变化。同时，存储系统必须能够处理数千个用户请求并提供高吞吐量。该系统取代了传统的通过集成智能以自行处理特定操作的对象存储设备与磁盘或RAID的接口。客户端与元数据服务器交互以执行操作，例如打开和重命名，同时直接与OSD进行I/O操作通信。用于在可用OSD上传播数据的算法称为CRUSH [18]。从高层次来看，Ceph客户端和元数据服务器将对象存储集群视为单个逻辑对象存储和命名空间，该集群由可能数十或数十万个OSD组成。 Ceph的可靠自主分布式对象存储（RADOS）通过将对象复制，集群扩展，故障检测和恢复管理以分布式方式委派给OSD，实现了容量和聚合性能的线性扩展。
-OSD：Ceph OSD守护进程（OSD）存储数据，处理数据复制，恢复，回填，重新平衡，并通过检查其他Ceph OSD守护进程来获取心跳，为Ceph监视器提供一些监视信息。 当群集生成两份数据副本时，Ceph存储群集至少需要两个Ceph OSD守护进程才能实现active+clean状态（Ceph默认情况下会生成2个副本，但它是可调整的）。
-monitor：Ceph监视器维护集群状态的映射，包括监视器映射，OSD映射，放置组（PG）映射和CRUSH映射。 Ceph通过Ceph monitor，Ceph OSD守护进程和PG维护每个状态变化的历史（称为“时代”）。
-MDS：Ceph元数据服务器（MDS）代表Ceph文件系统存储元数据（即，Ceph块设备和Ceph对象存储不使用MDS）。Ceph元数据服务器使POSIX文件系统用户可以执行诸如ls，find等基本命令，而不会给Ceph存储集群带来巨大负担。</code></pre><h3 id="2-1-Openstack-and-Ceph"><a href="#2-1-Openstack-and-Ceph" class="headerlink" title="2.1 Openstack and Ceph"></a><strong>2.1 Openstack and Ceph</strong></h3><pre><code>必须在群集中创建池才能访问存储。这些池可以用作OpenStack服务Glance和Cinder。使用Ceph运行Swift也可以通过Rados网关（它是Ceph的一部分），为集群中的对象提供RESTful API。由于Glance仅托管VM的映像，因此它没有任何实际性能要求，尤其是在创建VM时通过选择“复制到卷”选项来使用Cinder实际运行VM时。此外，即使可以在没有Cinder的情况下使用Glance并使用它来启动图像，它也不提供同时使用多个后端的选项。这是一项要求的功能，但目前无法使用。
-Cinder支持多个同时连接的后端。这提供了创建不同Cinder层的可能性，这些层连接到具有不同功能或特征的不同后端系统，例如将一个专有存储系统和网络共享设置为后端或使用Ceph的不同池或完全不同的Ceph集群。在第一种情况下，Ceph配置文件是相同的，只有Ceph池是不同的。在第二种情况下，有必要提供指向不同集群的多个Ceph配置，因为Ceph监视器将在不同的主机上运行。这可能用于提供低规格版本，无法为低成本解决方案或高成本固态驱动器解决方案提供故障恢复能力。</code></pre><h3 id="2-2-集群级别的优化"><a href="#2-2-集群级别的优化" class="headerlink" title="2.2 集群级别的优化"></a><strong>2.2 集群级别的优化</strong></h3><pre><code>在集群级别调整分布式文件系统可以访问Ceph的所有参数以及基础组件，例如缓存大小，恢复设置，日志设置或日志记录。这允许完美地采用特定工作负载，但相比之下，不允许区分，因此在一个集群中允许多个工作负载。做出决定时，它会影响整个系统，只能通过池中可访问的参数进行轻微调整。
-要提供不同的存储变体，必须对整个存储群集进行分区，并且必须创建多个群集。可以在单个主机上运行多个群集，但必须保证服务具有唯一的IP和端口组合。在Ceph级别上，无法轻松地将数据从一个群集复制到另一个群集，但在OpenStack中，它受到特定限制的支持。无法迁移具有快照的卷。</code></pre><h3 id="2-3-使用池和分层优化"><a href="#2-3-使用池和分层优化" class="headerlink" title="2.3 使用池和分层优化"></a><strong>2.3 使用池和分层优化</strong></h3><pre><code>在不更改Crushmap的情况下在Ceph池级别进行优化时，与在集群级别进行优化时可用的选项相比，可以更改的参数是有限的。总共有19个参数（[13]中的完整列表）可以改变池的特征。
-其中一些参数直接影响存储池的性能和行为，因为它们直接影响池特性。参数如size，min size，pgp_num，crush_ruleset，hashpspool和crash_replay_interval对池分配数据的方式有很大影响OSD和存储的副本数量。它们还直接影响可靠性，稳定性和恢复。
-Ceph提供了向池添加缓存层的选项。为较高频率的对象添加快速昂贵的驱动器，使用速度较慢的磁盘作为冷存储或较慢的存储。这种分层系统在企业存储系统中非常常见，例如， Dell Compellent [6]，现在也可以在软件解决方案中使用，例如Ceph。更改池参数会影响缓存和普通层之间的对象移动以及使用的缓存算法。</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/20/impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace/" data-id="cjye1o4f70002y4vqgsz34r5s" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hexo+github+next博客搭建 " class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-hexo+github+next博客搭建 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/20/hexo+github+next博客搭建 /" class="article-date">
   <time datetime="2019-07-19T21:49:27.000Z" itemprop="datePublished">2019-07-20</time>
@@ -123,8 +77,8 @@ Ceph提供了向池添加缓存层的选项。为较高频率的对象添加快�
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/hexo+github+next博客搭建 /">hexo+github+next博客搭建</a>
+    <h1 class="article-title" itemprop="name">
+      hexo+github+next博客搭建
     </h1>
   
 
@@ -194,98 +148,28 @@ Ceph提供了向池添加缓存层的选项。为较高频率的对象添加快�
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-my-first-blog" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/18/my-first-blog/" class="article-date">
-  <time datetime="2019-07-18T01:32:07.000Z" itemprop="datePublished">2019-07-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2019/07/20/impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/18/my-first-blog/">my-first-blog</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们每个人都会在我们的生活或者工作中遇到各种各样的最优化问题，比如每个企业和个人都要考虑的一个问题“在一定成本下，如何使利润最大化”等。<br>最优化方法是一种数学方法，它是研究在给定约束之下如何寻求某些因素(的量)，以使某一(或某些)指标达到最优的一些学科的总称。随着学习的深入，<br>我越来越发现最优化方法的重要性，学习和工作中遇到的大多问题都可以建模成一种最优化模型进行求解，比如我们现在学习的机器学习算法，<br>大部分的机器学习算法的本质都是建立优化模型，通过最优化方法对目标函数（或损失函数）进行优化，从而训练出最好的模型。<br>常见的最优化方法有梯度下降法、牛顿法和拟牛顿法、共轭梯度法等等。<br>顺序写测试：<br>root@node16:~/test_a# rados bench -p  rbd 10 write –no-cleanup<br> Maintaining 16 concurrent writes of 4194304 bytes for up to 10 seconds or 0 objects<br> Object prefix: benchmark_data_node16_17855<br>   sec Cur ops   started  finished  avg MB/s  cur MB/s  last lat   avg lat<br>     0       0         0         0         0         0         -         0<br>     1      16       212       196   783.871       784 0.0662144 0.0790848<br>     2      16       412       396   791.887       800 0.0583568  0.079381<br>     3      16       617       601   801.228       820 0.0459566 0.0770982<br>     4      16       659       643   642.926       168  0.333632 0.0856566<br>     5      16       682       666   532.744        92 0.0382583 0.0991651<br>     6      16       717       701   467.289       140   1.38742   0.12169<br>     7      16       752       736   420.533       140   1.91145  0.144274<br>     8      16       833       817   408.466       324 0.0497163   0.15507<br>     9      16       986       970   431.077       612 0.0760018  0.147593<br>    10      16      1075      1059   423.567       356 0.0228768  0.143967<br>    11      14      1076      1062   386.153        12   1.02528  0.146285<br> Total time run:         11.904218<br>Total writes made:      1076<br>Write size:             4194304<br>Bandwidth (MB/sec):     361.553</p>
-<p>Stddev Bandwidth:       317.025<br>Max bandwidth (MB/sec): 820<br>Min bandwidth (MB/sec): 0<br>Average Latency:        0.174728<br>Stddev Latency:         0.363631<br>Max latency:            2.77187<br>Min latency:            0.0157851</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/18/my-first-blog/" data-id="cjye1o4f90003y4vqj68lws6l" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/18/hello-world/" class="article-date">
-  <time datetime="2019-07-18T01:29:36.344Z" itemprop="datePublished">2019-07-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          impact of single parameter changes on Ceph cloud storage performace
         
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/18/hello-world/">Hello World</a>
-    </h1>
   
+    <a href="/2019/07/18/my-first-blog/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">my-first-blog</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/18/hello-world/" data-id="cjye1o4f30001y4vqhjjc56ov" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         

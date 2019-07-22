@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>impact of single parameter changes on Ceph cloud storage performace | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Abstract:在通用云系统中，在用于私有云的存储系统支持不同的应用程序及要求尚未获得理想的效率。 支持这些不同的要求对于支持各种参数的细粒度配置的存储系统提出了重大挑战。 本文使用Ceph分布式文件系统，特别是其全局参数，来说明在使用OpenStack云系统进行测试时，单个更改的参数如何影响一系列访问模式的性能。1.介绍云系统变得越来越复杂，可以被采用以适应各种类型的用例，并且用户以非常不同的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="impact of single parameter changes on Ceph cloud storage performace">
+<meta property="og:url" content="http://yoursite.com/2019/07/20/impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Abstract:在通用云系统中，在用于私有云的存储系统支持不同的应用程序及要求尚未获得理想的效率。 支持这些不同的要求对于支持各种参数的细粒度配置的存储系统提出了重大挑战。 本文使用Ceph分布式文件系统，特别是其全局参数，来说明在使用OpenStack云系统进行测试时，单个更改的参数如何影响一系列访问模式的性能。1.介绍云系统变得越来越复杂，可以被采用以适应各种类型的用例，并且用户以非常不同的">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-21T01:07:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="impact of single parameter changes on Ceph cloud storage performace">
+<meta name="twitter:description" content="Abstract:在通用云系统中，在用于私有云的存储系统支持不同的应用程序及要求尚未获得理想的效率。 支持这些不同的要求对于支持各种参数的细粒度配置的存储系统提出了重大挑战。 本文使用Ceph分布式文件系统，特别是其全局参数，来说明在使用OpenStack云系统进行测试时，单个更改的参数如何影响一系列访问模式的性能。1.介绍云系统变得越来越复杂，可以被采用以适应各种类型的用例，并且用户以非常不同的">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/20/impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace/" class="article-date">
+  <time datetime="2019-07-20T01:30:08.000Z" itemprop="datePublished">2019-07-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      impact of single parameter changes on Ceph cloud storage performace
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract:"></a><strong>Abstract:</strong></h2><pre><code>在通用云系统中，在用于私有云的存储系统支持不同的应用程序及要求尚未获得理想的效率。 支持这些不同的要求对于支持各种参数的细粒度配置的存储系统提出了重大挑战。 本文使用Ceph分布式文件系统，特别是其全局参数，来说明在使用OpenStack云系统进行测试时，单个更改的参数如何影响一系列访问模式的性能。</code></pre><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a><strong>1.介绍</strong></h2><pre><code>云系统变得越来越复杂，可以被采用以适应各种类型的用例，并且用户以非常不同的方式利用云资源。 他们的要求根据工作负载而变化，其中包括Web服务器，数据库服务器，电子邮件服务器或目录服务器等服务，但它们也可用于其他目的，例如虚拟桌面，呈现或基因组排序。 这些服务的要求不仅在最常用的系统组件中有所不同，例如CPU，内存系统或网络，还有它的特性。
+在查看存储系统时，服务要求差别很大。 访问模式由顺序和/或随机方式的读和/或写的混合以及不同的块大小的组合。 根据应用程序，具有最高重要性的度量标准可能是吞吐量，平均或最大延迟或两者的混合。 此处技术解决方案的主要动机是尝试回答云运营商如何更改存储配置以更好地支持这些特定访问模式的问题。
+
+OpenStack提供了为VM的I/O系统设置配额的选项。
+可以为每秒的读/写/总字节数（B/s）或每秒操作数（IOPS）的相同类别设置限制。这允许细粒度限制，这可以有效地限制小文件（通过IOPS）和大文件（通过B/s）访问模式的吞吐量。
+使用这些配额时，无法创建适合特定工作负载的风格，因为这些限制参数无法捕获某些重要特征（如延迟）。因此，必须能够提供可以更加针对用例的存储选项。 其范围从使用不同的技术，例如传统的慢速和快速旋转硬盘驱动器到固态驱动器。 这些驱动器可以用于影响相应性能的许多不同配置中。 配置选项包括存储I/O调度程序和文件系统等。当与分布式文件系统结合使用时变得更具挑战性，分布式文件系统似乎是根据用于OpenStack的最常见的存储后端。</code></pre><h2 id="2-Ceph"><a href="#2-Ceph" class="headerlink" title="2.Ceph"></a><strong>2.Ceph</strong></h2><pre><code>Ceph的设计假设大型peta级存储系统是一个增量增长系统，其中组件的故障不是例外，而是规范，工作负载不断变化。同时，存储系统必须能够处理数千个用户请求并提供高吞吐量。该系统取代了传统的通过集成智能以自行处理特定操作的对象存储设备与磁盘或RAID的接口。客户端与元数据服务器交互以执行操作，例如打开和重命名，同时直接与OSD进行I/O操作通信。用于在可用OSD上传播数据的算法称为CRUSH [18]。从高层次来看，Ceph客户端和元数据服务器将对象存储集群视为单个逻辑对象存储和命名空间，该集群由可能数十或数十万个OSD组成。 Ceph的可靠自主分布式对象存储（RADOS）通过将对象复制，集群扩展，故障检测和恢复管理以分布式方式委派给OSD，实现了容量和聚合性能的线性扩展。
+OSD：Ceph OSD守护进程（OSD）存储数据，处理数据复制，恢复，回填，重新平衡，并通过检查其他Ceph OSD守护进程来获取心跳，为Ceph监视器提供一些监视信息。 当群集生成两份数据副本时，Ceph存储群集至少需要两个Ceph OSD守护进程才能实现active+clean状态（Ceph默认情况下会生成2个副本，但它是可调整的）。
+monitor：Ceph监视器维护集群状态的映射，包括监视器映射，OSD映射，放置组（PG）映射和CRUSH映射。 Ceph通过Ceph monitor，Ceph OSD守护进程和PG维护每个状态变化的历史（称为“时代”）。
+MDS：Ceph元数据服务器（MDS）代表Ceph文件系统存储元数据（即，Ceph块设备和Ceph对象存储不使用MDS）。Ceph元数据服务器使POSIX文件系统用户可以执行诸如ls，find等基本命令，而不会给Ceph存储集群带来巨大负担。</code></pre><h3 id="2-1-Openstack-and-Ceph"><a href="#2-1-Openstack-and-Ceph" class="headerlink" title="2.1 Openstack and Ceph"></a><strong>2.1 Openstack and Ceph</strong></h3><pre><code>必须在群集中创建池才能访问存储。这些池可以用作OpenStack服务Glance和Cinder。使用Ceph运行Swift也可以通过Rados网关（它是Ceph的一部分），为集群中的对象提供RESTful API。由于Glance仅托管VM的映像，因此它没有任何实际性能要求，尤其是在创建VM时通过选择“复制到卷”选项来使用Cinder实际运行VM时。此外，即使可以在没有Cinder的情况下使用Glance并使用它来启动图像，它也不提供同时使用多个后端的选项。这是一项要求的功能，但目前无法使用。
+Cinder支持多个同时连接的后端。这提供了创建不同Cinder层的可能性，这些层连接到具有不同功能或特征的不同后端系统，例如将一个专有存储系统和网络共享设置为后端或使用Ceph的不同池或完全不同的Ceph集群。在第一种情况下，Ceph配置文件是相同的，只有Ceph池是不同的。在第二种情况下，有必要提供指向不同集群的多个Ceph配置，因为Ceph监视器将在不同的主机上运行。这可能用于提供低规格版本，无法为低成本解决方案或高成本固态驱动器解决方案提供故障恢复能力。</code></pre><h3 id="2-2-集群级别的优化"><a href="#2-2-集群级别的优化" class="headerlink" title="2.2 集群级别的优化"></a><strong>2.2 集群级别的优化</strong></h3><pre><code>在集群级别调整分布式文件系统可以访问Ceph的所有参数以及基础组件，例如缓存大小，恢复设置，日志设置或日志记录。这允许完美地采用特定工作负载，但相比之下，不允许区分，因此在一个集群中允许多个工作负载。做出决定时，它会影响整个系统，只能通过池中可访问的参数进行轻微调整。
+要提供不同的存储变体，必须对整个存储群集进行分区，并且必须创建多个群集。可以在单个主机上运行多个群集，但必须保证服务具有唯一的IP和端口组合。在Ceph级别上，无法轻松地将数据从一个群集复制到另一个群集，但在OpenStack中，它受到特定限制的支持。无法迁移具有快照的卷。</code></pre><h3 id="2-3-使用池和分层优化"><a href="#2-3-使用池和分层优化" class="headerlink" title="2.3 使用池和分层优化"></a><strong>2.3 使用池和分层优化</strong></h3><pre><code>在不更改Crushmap的情况下在Ceph池级别进行优化时，与在集群级别进行优化时可用的选项相比，可以更改的参数是有限的。总共有19个参数（[13]中的完整列表）可以改变池的特征。
+其中一些参数直接影响存储池的性能和行为，因为它们直接影响池特性。参数如size，min size，pgp_num，crush_ruleset，hashpspool和crash_replay_interval对池分配数据的方式有很大影响OSD和存储的副本数量。它们还直接影响可靠性，稳定性和恢复。
+Ceph提供了向池添加缓存层的选项。为较高频率的对象添加快速昂贵的驱动器，使用速度较慢的磁盘作为冷存储或较慢的存储。这种分层系统在企业存储系统中非常常见，例如， Dell Compellent [6]，现在也可以在软件解决方案中使用，例如Ceph。更改池参数会影响缓存和普通层之间的对象移动以及使用的缓存算法。</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/20/impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace/" data-id="cjye1o4f70002y4vqgsz34r5s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/20/hexo+github+next博客搭建 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hexo+github+next博客搭建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/20/impact-of-single-parameter-changes-on-Ceph-cloud-storage-performace/">impact of single parameter changes on Ceph cloud storage performace</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/20/hexo+github+next博客搭建 /">hexo+github+next博客搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/my-first-blog/">my-first-blog</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
